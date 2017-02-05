@@ -1,0 +1,7 @@
+/home/tyler/Computer-Automation/CMakeFiles/install.dir
+/home/tyler/Computer-Automation/CMakeFiles/list_install_components.dir
+/home/tyler/Computer-Automation/CMakeFiles/rebuild_cache.dir
+/home/tyler/Computer-Automation/CMakeFiles/Computer-Automation.dir
+/home/tyler/Computer-Automation/CMakeFiles/edit_cache.dir
+/home/tyler/Computer-Automation/CMakeFiles/install/strip.dir
+/home/tyler/Computer-Automation/CMakeFiles/install/local.dir

@@ -1,0 +1,1 @@
+/usr/bin/cc   -Wall -Werror   CMakeFiles/Scanner.dir/main.c.o CMakeFiles/Scanner.dir/src/scanner.c.o CMakeFiles/Scanner.dir/src/script.c.o CMakeFiles/Scanner.dir/src/x11.c.o CMakeFiles/Scanner.dir/src/Win32.c.o  -o Scanner -rdynamic 
