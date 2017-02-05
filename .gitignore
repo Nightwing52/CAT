@@ -40,6 +40,7 @@
 *.hex
 Push
 push.sh
+Computer-Automation
 
 # Debug files
 *.dSYM/
