@@ -9,6 +9,7 @@
 typedef struct Script {
 	Scanner *scanner;
 	char **commands;
+	unsigned int length;
 } Script;
 
 bool script_init(Script *script, char filename[]);

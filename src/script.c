@@ -14,8 +14,16 @@ bool script_init(Script *script, char filename[]){
 	else
 		return true;
 
-	int curr=-1;
+	if(script->scanner->hasNext){
+		char *firstLine=scnr_nextLine(script->scanner);
+		script->commands=malloc(sizeof(firstLine));
+		script->commands[0]=firstLine;
+		script->length=1;
+	}
+
+	unsigned int curr=0;
 	while(script->scanner->hasNext){
+		script->length+=1;
 		char *nextLine=scnr_nextLine(script->scanner);
 		script->commands=realloc(script->commands, sizeof(script->commands)+sizeof(nextLine));
 		script->commands[++curr]=nextLine;
