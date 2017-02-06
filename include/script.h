@@ -8,12 +8,12 @@
 
 typedef struct Script {
 	Scanner *scanner;
-	char *commands[];
+	char **commands;
 } Script;
 
-bool tscript_init(Script *script, char filename[]);
+bool script_init(Script *script, char filename[]);
 
-bool tscript_exec(Script *script, int OS);
+bool script_exec(Script *script);
 
-void tscript_close(Script *script);
+void script_close(Script *script);
 #endif

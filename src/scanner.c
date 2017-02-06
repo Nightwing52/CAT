@@ -56,4 +56,5 @@ double scnr_nextDouble(Scanner *scanner) {
 /* cleaning up */
 void scnr_close(Scanner *scanner) {
 	fclose(scanner->file);
+	free(scanner);
 }
