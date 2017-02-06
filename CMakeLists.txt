@@ -14,8 +14,8 @@ set(SOURCES
 	include/script.h
 	src/x11.c
 	include/x11.h
-	src/windows.c
-	include/windows.h
+	src/Win32.c
+	include/Win32.h
 )
 
 

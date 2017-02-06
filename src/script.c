@@ -13,16 +13,16 @@ bool script_init(Script *script, char filename[]){
 		return false;
 	else
 		return true;
-}
 
-bool script_exec(Script *script){
 	int curr=-1;
 	while(script->scanner->hasNext){
 		char *nextLine=scnr_nextLine(script->scanner);
 		script->commands=realloc(script->commands, sizeof(script->commands)+sizeof(nextLine));
 		script->commands[++curr]=nextLine;
 	}
+}
 
+bool script_exec(Script *script){
 	run(script);
 
 	return true;
