@@ -6,17 +6,16 @@
 
 #include "scanner.h"
 #include "script.h"
+#include <string.h>
 
 bool script_init(Script *script, char filename[]){
 	script->scanner=(Scanner *) malloc(sizeof(Scanner));
 	if(scnr_init(script->scanner, filename) == false)
 		return false;
-	else
-		return true;
 
 	if(script->scanner->hasNext){
 		char *firstLine=scnr_nextLine(script->scanner);
-		script->commands=malloc(sizeof(firstLine));
+		script->commands=malloc(sizeof(char *));
 		script->commands[0]=firstLine;
 		script->length=1;
 	}
@@ -25,9 +24,10 @@ bool script_init(Script *script, char filename[]){
 	while(script->scanner->hasNext){
 		script->length+=1;
 		char *nextLine=scnr_nextLine(script->scanner);
-		script->commands=realloc(script->commands, sizeof(script->commands)+sizeof(nextLine));
+		script->commands=realloc(script->commands, sizeof(char *)*script->length);
 		script->commands[++curr]=nextLine;
 	}
+	return true;
 }
 
 bool script_exec(Script *script){
