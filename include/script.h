@@ -9,6 +9,7 @@
 typedef struct Script {
 	Scanner *scanner;
 	char **commands;
+	char *shortcut;
 	unsigned int length;
 } Script;
 

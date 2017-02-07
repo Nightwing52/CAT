@@ -4,6 +4,6 @@
 #include "script.h"
 #include <stdbool.h>
 
-bool run(Script *script);
+bool run(char *line);
 
 #endif
