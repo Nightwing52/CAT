@@ -7,50 +7,50 @@
 #include "scanner.h"
 #include "script.h"
 #include <string.h>
+#include <stdbool.h>
 
-bool script_init(Script *script, char filename[]){
-	script->scanner=(Scanner *) malloc(sizeof(Scanner));
+bool script_load(Script *script, char *filename){
+	/* setup */
+	script->scanner=malloc(sizeof(Scanner));
 	if(scnr_init(script->scanner, filename) == false)
 		return false;
 
+	/* validating the script and getting the keyboard shortcut to activate it */
 	if(script->scanner->hasNext){
-		char *firstLine=scnr_nextLine(script->scanner);
-		script->commands=malloc(sizeof(char *));
-		script->commands[0]=firstLine;
-		script->length=1;
+		char *token=scnr_nextLine(script->scanner);
+		strtok(token, "[s+[\".+\"]");
+		printf("%s %d\n", token, (int)strlen(token));
+		if(strcmp(token, "on ") == 0)
+			script->shortcut=strtok(NULL, "[s+[s+\".+\"s+]");
+		else{
+			printf("There is no keyboard shortcut for the script!\n");
+			return false;
+		}
 	}
-	else
+	else{
 		scnr_close(script->scanner);
-
-	unsigned int curr=0;
-	while(script->scanner->hasNext){
-		script->length+=1;
-		char *nextLine=scnr_nextLine(script->scanner);
-		script->commands=realloc(script->commands, sizeof(char *)+sizeof(char *)*script->length);
-		script->commands[++curr]=nextLine;
+		printf("%s is an empty file!\n", filename);
 	}
 
+	/* reading script into memory */
+	unsigned int size=0;
+	char **commands=malloc(sizeof(char *));
+	/* seg fault loop */
+	while(script->scanner->hasNext){
+		commands=realloc(commands, sizeof(commands)+sizeof(char *)*size);
+		char *currLine=scnr_nextLine(script->scanner);
+		commands[size]=currLine;
+		size++;
+	}
+
+	/* saving the commands for future calling */
+	save(commands, size);
+
+	/* cleaning up */
 	scnr_close(script->scanner);
 	return true;
 }
 
 bool script_exec(Script *script){
-	for(unsigned int i=0;i<script->length;++i){
-		char *currToken=strtok(script->commands[i], "[s+[\".+\"]");
-		if(strcmp(currToken, "on") == 0)
-			script->shortcut=strtok(NULL, "[s+[\".+\"]");
-		else
-			run(script->commands[i]);
-
-		free(currToken);
-	}
-
 	return true;
-}
-
-void script_close(Script *script){
-	for(unsigned int i=0;i<script->length;++i)
-		free(script->commands[i]);
-	free(script->shortcut);
-	free(script);
 }

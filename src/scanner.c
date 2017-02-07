@@ -18,7 +18,7 @@ bool scnr_init(Scanner *scanner,char *location) {
 /* returning the next token from the file */
 char* scnr_next(Scanner *scanner) {
 	if(fscanf(scanner->file,"%s",scanner->currToken) == true){ //if we have another element
-		char *currToken=(char *) malloc(sizeof(char)*strlen(scanner->currToken));
+		char *currToken=malloc(sizeof(char)*strlen(scanner->currToken));
 		return strcpy(currToken, scanner->currToken);
 	}
 	else{
@@ -30,8 +30,8 @@ char* scnr_next(Scanner *scanner) {
 
 /* returning the next line of the file */
 char* scnr_nextLine(Scanner *scanner) {
-	if(fscanf(scanner->file, "%[^\n]\n", scanner->currLine) != EOF){ //if we have another line
-		char *currLine=(char *) malloc(sizeof(char)*strlen(scanner->currToken));
+	if(fscanf(scanner->file, "%128[^\n]\n", scanner->currLine) != EOF){ //if we have another line
+		char *currLine=malloc(sizeof(char)*strlen(scanner->currToken));
 		return strcpy(currLine, scanner->currLine);
 	}
 	else{
@@ -60,5 +60,4 @@ double scnr_nextDouble(Scanner *scanner) {
 /* cleaning up */
 void scnr_close(Scanner *scanner) {
 	fclose(scanner->file);
-	free(scanner);
 }

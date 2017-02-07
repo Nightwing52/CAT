@@ -16,11 +16,10 @@ int main(int argc, char *argv[]){
 	printf("Enter the filename for your script.\n");
 	char *filename=(char *) malloc(sizeof(char)*32);
 	scanf("%s", filename);
-	script_init(script, filename);
+	script_load(script, filename);
 	free(filename);
 
 	/* execute script */
     script_exec(script);
-
 	return 0;
 }

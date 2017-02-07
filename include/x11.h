@@ -4,6 +4,12 @@
 #include "script.h"
 #include <stdbool.h>
 
-bool run(char *line);
+typedef struct Bash{
+	char **commands; //in xdotool form
+} Bash;
+
+Bash* save(char **lines, unsigned int length);
+
+bool run(Bash *bash);
 
 #endif
